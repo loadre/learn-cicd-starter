@@ -32,7 +32,9 @@ jobs:
       - name: Install staticcheck
         run: go install honnef.co/go/tools/cmd/staticcheck@latest
       - name: Add GOPATH to envvars
-        echo 'export PATH=$PATH:$GOPATH/bin' >> ~/.bashrc && source ~/.bashrc
+        echo 'export PATH=$PATH:$GOPATH/bin' >> ~/.bashrc 
+      - name: Add GOPATH to envvars [2]
+        source ~/.bashrc
       - name: Lint check
         run: staticcheck ./...
 
