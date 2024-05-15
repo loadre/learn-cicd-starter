@@ -25,16 +25,14 @@ jobs:
   style:
     name: Style
     runs-on: ubuntu-latest
+    env:
+      GOPATH: ${{ github.workspace }}/go
 
     steps: 
       - name: Format check
         run: test -z $(go fmt ./...)
       - name: Install staticcheck
         run: go install honnef.co/go/tools/cmd/staticcheck@latest
-      - name: Add GOPATH to envvars
-        echo 'export PATH=$PATH:$GOPATH/bin' >> ~/.bashrc 
-      - name: Add GOPATH to envvars [2]
-        source ~/.bashrc
       - name: Lint check
         run: staticcheck ./...
 
