@@ -27,10 +27,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps: 
-<<<<<<< HEAD
       - name: Format check
         run: test -z $(go fmt ./...)
-=======
-    run: test -z $(go fmt ./...)
 
->>>>>>> refs/remotes/origin/addtests
