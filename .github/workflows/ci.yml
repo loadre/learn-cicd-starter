@@ -8,41 +8,58 @@ on:
 
 
 jobs:
-  tests:
-    name: tests
+  # tests:
+  #   name: tests
+  #   runs-on: ubuntu-latest
+  #
+  #   steps:
+  #     - name: Set up Go
+  #       uses: actions/setup-go@v4
+  #       with:
+  #         go-version: "1.20"
+  #
+  #     - name: Check out code
+  #       uses: actions/checkout@v3
+  #
+  #     # - name: Force Failure
+  #     #   run: go test -cover ./...
+  #     #
+  #       #
+  # style:
+  #   name: Style
+  #   runs-on: ubuntu-latest
+  #
+  #   steps:
+  #     - name: Check out code
+  #       uses: actions/checkout@v3
+  #
+  #     - name: Set up Go
+  #       uses: actions/setup-go@v4
+  #       with:
+  #         go-version: "1.20"
+  #
+  #     - name: Format check
+  #       run: test -z $(go fmt ./...)
+  #     - name: Install staticcheck
+  #       run: go install honnef.co/go/tools/cmd/staticcheck@latest
+  #     - name: Lint check
+  #       run: staticcheck ./...
+
+  security:
+    name: Security
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
           go-version: "1.20"
 
-      - name: Check out code
-        uses: actions/checkout@v3
+      - name: Install gosec
+        run: go install github.com/securego/gosec/v2/cmd/gosec@latest
 
-      # - name: Force Failure
-      #   run: go test -cover ./...
-      #
-        #
-  style:
-    name: Style
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: "1.20"
-
-      - name: Format check
-        run: test -z $(go fmt ./...)
-      - name: Install staticcheck
-        run: go install honnef.co/go/tools/cmd/staticcheck@latest
-      - name: Lint check
-        run: staticcheck ./...
-
-
+      - name: Run gosec
+        run: gosec ./...
