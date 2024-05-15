@@ -1,8 +1,9 @@
 name: ci
 
 on:
-  pull_request:
+  [pull_request, push]:
     branches: [main]
+    
 
 jobs:
   tests:
@@ -27,8 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GOPATH: ${{ github.workspace }}/go
+      GOBIN: ${{ github.workspace }}/go/bin
+      PATH: ${{ github.workspace }}/go/bin:${{ env.PATH }}
 
-    steps: 
+    steps:
       - name: Format check
         run: test -z $(go fmt ./...)
       - name: Install staticcheck
