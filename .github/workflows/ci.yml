@@ -44,7 +44,6 @@ jobs:
   #       run: go install honnef.co/go/tools/cmd/staticcheck@latest
   #     - name: Lint check
   #       run: staticcheck ./...
-
   security:
     name: Security
     runs-on: ubuntu-latest
